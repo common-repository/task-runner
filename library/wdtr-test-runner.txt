@@ -1,0 +1,62 @@
+---
+Name: WDTR Test Runner
+Version: 1.0.1
+Description: What is the end result of this task.
+The Key to an awesome site is ythe fact that nybody can change he world. It is onlt possible to change it if you have the power.
+---
+
+# Test Variables
+console log "*** Test Variables & Setting options ***"
+var prefix = "Multiple Variables"
+var postfix = " test"
+console log "{{prefix}} {{postfix}}"
+# Setup by Setting Option
+settings setOption WDTR_TEST_option false
+# TEST Get Option from DB
+var getOption = settings getOption WDTR_TEST_option
+console log "Return statement from function : {{getOption}}"
+# TEST Set Option return variable
+var setOption = settings setOption WDTR_TEST_option true
+console log "Return statement from function : {{setOption}}"
+
+# Test Console logs
+console log "*** Test Logs ***"
+console log "Test Standard Log"
+console comment "Test Comment Log"
+console error "Test Error Log"
+console success "Test Success Log"
+
+# Test WordPress plugin functions
+console log "*** Test Plugin Functions ***"
+var testPluginName = "hello-dolly/hello.php"
+plugin status {{testPluginName}}
+plugin install {{testPluginName}}
+plugin status {{testPluginName}}
+plugin activate {{testPluginName}}
+plugin status {{testPluginName}}
+plugin deactivate {{testPluginName}}
+plugin status {{testPluginName}}
+plugin delete {{testPluginName}}
+plugin status {{testPluginName}}
+# Test multi-plugin functions
+console log "*** Test Plugins Functions ***"
+plugins status
+
+# Test WordPress Theme functions
+console log "*** Test Theme Functions ***"
+var testThemeName = "super-minimal"
+var currentTheme = theme current
+theme install {{testThemeName}}
+theme activate {{testThemeName}}
+var newTheme = theme current
+# v1.0.1 Added to Test if new theme installed successfully
+console comment "Current active theme is {{newTheme}}"
+theme activate {{currentTheme}}
+theme delete {{testThemeName}}
+# v1.0.1 Added to Test of old theme is reinstalled successfully
+console comment "Current active theme is {{currentTheme}}"
+
+# Test WordPress Page functions
+console log "*** Test Post Functions ***"
+var homepageId = post create "post" "test post creation" "content" "publish"
+console log "PostID {{homepageId}} created successfully."
